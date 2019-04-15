@@ -1,0 +1,59 @@
+.App {
+}
+
+header {
+  text-align: center;
+}
+
+table {
+  list-style: none;
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+table tr td {
+  padding: 10px;
+}
+
+table tr:nth-child(odd) {
+  background: #ebebeb;
+}
+
+.stock-name {
+  font-weight: bold;
+}
+
+.stock-value {
+  text-align: center;
+}
+
+.stock-remove {
+  text-align: center;
+  color: red;
+}
+
+.stock-remove button {
+  background: red;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: none;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.add-form {
+  width: 400px;
+  margin: 0 auto;
+  background: #ebebeb;
+}
+
+.add-form .form-field {
+  padding: 10px;
+}
+
+.add-form .form-field input {
+  float: right;
+}
