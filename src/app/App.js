@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { StocksService } from "./services/StocksService";
+import StocksService from "./services/StocksService";
 
 class App extends Component {
 
@@ -16,28 +16,54 @@ class App extends Component {
 
   componentDidMount() {
     const stocks = StocksService.getStocks();
+
     this.setState({ stocks });
   }
 
   removeStock = id => {
-      StocksService.removeStock(id);
+    StocksService.removeStock(id);
+
+		this.setState({
+			stocks: StocksService.getStocks()
+		});
   };
 
   addStock = event => {
     const { newStock } = this.state;
-    event.preventDefault();
     StocksService.addStock(newStock);
-  };
+
+    this.setState({
+      stocks: StocksService.getStocks(),
+			newStock: {}
+    });
+
+		event.preventDefault();
+	};
 
   handleChange(event) {
-      const { target: { value, name } } = event;
-      this.setState({
-          newStock: {
-              ...this.state.newStock,
-              [name]: value
-          }
-      });
+    const { target: { value, name } } = event;
+    this.setState({
+        newStock: {
+            ...this.state.newStock,
+            [name]: value
+        }
+    });
   }
+
+  updateOrder = field => {
+    const { stocks } = this.state;
+    stocks.sort((a, b) => {
+			if (a[field] < b[field])
+				return -1;
+			if (a[field] > b[field])
+				return 1;
+			return 0;
+		});
+
+    this.setState({
+			stocks
+		});
+  };
 
   render() {
     const { stocks } = this.state;
@@ -47,10 +73,16 @@ class App extends Component {
 
           <table>
               <tbody>
+                <tr className="table-headers">
+                  <th onClick={() => this.updateOrder('name')} className="sortable">Name</th>
+                  <th onClick={() => this.updateOrder('value')} className="sortable">Value</th>
+                  <th>Remove</th>
+                </tr>
+
                 { stocks.map(stock =>
                   <tr key={stock.id}>
                       <td className="stock-name">{stock.name}</td>
-                      <td className="stock-value">{stock.value}</td>
+                      <td className={`stock-value ${stock.value < 0 ? 'negative' : 'positive'}`}>{stock.value}</td>
                       <td className="stock-remove">
                           <button onClick={() => this.removeStock(stock.id)}>X</button>
                       </td>

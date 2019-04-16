@@ -16,8 +16,16 @@ table tr td {
   padding: 10px;
 }
 
+table tr th.sortable {
+  cursor: pointer;
+}
+
 table tr:nth-child(odd) {
   background: #ebebeb;
+}
+
+table tr.table-headers {
+  background: #bcbcbc;
 }
 
 .stock-name {
@@ -26,6 +34,14 @@ table tr:nth-child(odd) {
 
 .stock-value {
   text-align: center;
+}
+
+.stock-value.positive {
+  color: green;
+}
+
+.stock-value.negative {
+  color: red;
 }
 
 .stock-remove {

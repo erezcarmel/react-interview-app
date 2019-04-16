@@ -1,19 +1,20 @@
 import Stock from './Stock';
 import { STOCKS } from './MockStocks';
 
-export class StocksService {
-    static stocks = STOCKS;
+class StocksService {
+	  stocks = STOCKS;
 
-    static getStocks = () => {
-        return StocksService.stocks;
+	  getStocks() {
+        return this.stocks;
     };
 
-    static removeStock = id => {
-        StocksService.stock = StocksService.stocks.filter(stock => stock.id !== id);
+    removeStock = id => {
+        this.stocks = this.stocks.filter(stock => stock.id !== id);
     };
 
-    static addStock = stock => {
-        StocksService.stocks.push(new Stock(stock));
-        console.log(StocksService.stocks);
+    addStock = stock => {
+        this.stocks.push(new Stock(stock));
     }
 }
+
+export default new StocksService();
